@@ -35,22 +35,22 @@
       become: true
 
     # Tap custom Homebrew repositories
-    - name: Tap custom Homebrew repositories
-      homebrew_tap:
-        name: "{{ item }}"
-      become: true
-      with_items:
+    #- name: Tap custom Homebrew repositories
+      #homebrew_tap:
+        #name: "{{ item }}"
+      #become: true
+      #with_items:
         # - 'homebrew/cask-fonts'  # Add any other custom taps you'd like to add
         # - 'another/tap'
         # - 'yet/another-tap'
 
     # Install Homebrew packages
-    - name: Install Homebrew packages
-      homebrew:
-        name: "{{ item }}"
-        state: latest
-      become: true
-      with_items:
+    #- name: Install Homebrew packages
+      #homebrew:
+        #name: "{{ item }}"
+        #state: latest
+      #become: true
+      #with_items:
         # - 'wget'                 # Add any other packages you'd like to install
         # - 'another-package'
         # - 'yet-another-package'
