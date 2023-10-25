@@ -1,0 +1,43 @@
+---
+- name: Install and Configure Homebrew on OSX
+  hosts: localhost
+  tasks:
+    # Check if Homebrew is installed
+    - name: Check if Homebrew is installed
+      command: which brew
+      register: brew_check
+      failed_when: false
+      changed_when: false
+
+    # Install Homebrew if not installed
+    - name: Install Homebrew
+      command: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      when: brew_check.rc != 0
+
+    # Tap custom Homebrew repositories
+    - name: Tap custom Homebrew repositories
+      homebrew_tap:
+        name: "{{ item }}"
+      with_items:
+        # - 'homebrew/cask-fonts'  # Add any other custom taps you'd like to add
+        # - 'another/tap'
+        # - 'yet/another-tap'
+
+    # Install Homebrew packages
+    - name: Install Homebrew packages
+      homebrew:
+        name: "{{ item }}"
+        state: latest
+      with_items:
+        # - 'wget'                 # Add any other packages you'd like to install
+        # - 'another-package'
+        # - 'yet-another-package'
+
+    # Install Homebrew casks
+    - name: Install Homebrew casks
+      homebrew_cask:
+        name: "{{ item }}"
+      with_items:
+        - 'google-chrome'
+        # - 'another-cask'
+        # - 'yet-another-cask'
