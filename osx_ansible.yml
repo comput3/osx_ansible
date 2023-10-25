@@ -32,7 +32,7 @@
     - name: Install Homebrew
       shell: curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | /bin/bash
       when: brew_check.rc != 0
-      become: true
+      become: false
 
     # Tap custom Homebrew repositories
     #- name: Tap custom Homebrew repositories
