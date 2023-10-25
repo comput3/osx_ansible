@@ -1,7 +1,27 @@
+Copy code
 ---
-- name: Install and Configure Homebrew on OSX
+- name: Configure macOS settings
   hosts: localhost
   tasks:
+    # Get the executing user's username
+    - name: Get executing user's username
+      command: whoami
+      register: executing_user
+      changed_when: false
+
+    # Ensure bash is listed in /etc/shells
+    - name: Ensure bash is in /etc/shells
+      lineinfile:
+        path: /etc/shells
+        line: '/bin/bash'
+        state: present
+      become: true
+
+    # Change default shell to bash for the executing user
+    - name: Set bash as the default shell for executing user
+      command: "chsh -s /bin/bash {{ executing_user.stdout }}"
+      become: true
+
     # Check if Homebrew is installed
     - name: Check if Homebrew is installed
       command: which brew
@@ -13,11 +33,13 @@
     - name: Install Homebrew
       command: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
       when: brew_check.rc != 0
+      become: true
 
     # Tap custom Homebrew repositories
     - name: Tap custom Homebrew repositories
       homebrew_tap:
         name: "{{ item }}"
+      become: true
       with_items:
         # - 'homebrew/cask-fonts'  # Add any other custom taps you'd like to add
         # - 'another/tap'
@@ -28,6 +50,7 @@
       homebrew:
         name: "{{ item }}"
         state: latest
+      become: true
       with_items:
         # - 'wget'                 # Add any other packages you'd like to install
         # - 'another-package'
@@ -37,7 +60,10 @@
     - name: Install Homebrew casks
       homebrew_cask:
         name: "{{ item }}"
+      become: true
       with_items:
         - 'google-chrome'
         - 'iterm2'
         - 'dbeaver-community'
+        # - 'another-cask'
+        # - 'yet-another-cask'
