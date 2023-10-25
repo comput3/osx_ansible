@@ -39,5 +39,5 @@
         name: "{{ item }}"
       with_items:
         - 'google-chrome'
-        # - 'another-cask'
-        # - 'yet-another-cask'
+        - 'iterm2'
+        - 'dbeaver-community'
