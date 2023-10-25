@@ -64,5 +64,5 @@
         - 'google-chrome'
         - 'iterm2'
         - 'dbeaver-community'
-        # - 'another-cask'
+        - 'visual-studio-code'
         # - 'yet-another-cask'
