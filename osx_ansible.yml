@@ -30,7 +30,7 @@
 
     # Install Homebrew if not installed
     - name: Install Homebrew
-      command: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      shell: curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | /bin/bash
       when: brew_check.rc != 0
       become: true
 
