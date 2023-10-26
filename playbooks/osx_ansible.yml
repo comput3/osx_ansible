@@ -61,7 +61,7 @@
         - dbeaver-community
         - keepassxc
         
-     - name: Install Brew Packages
+    - name: Install Brew Packages
       command:
         cmd: "brew install {{ item }}"
       loop:
