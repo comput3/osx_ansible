@@ -50,7 +50,7 @@
     - name: Install Homebrew
       import_tasks: ../tasks/install_homebrew.yml
 
-    # Install Casks
+    # Install Casks & Packages
     - name: Install Casks
       command:
         cmd: "brew install --cask {{ item }}"
@@ -60,3 +60,10 @@
         - visual-studio-code
         - dbeaver-community
         - keepassxc
+        
+     - name: Install Brew Packages
+      command:
+        cmd: "brew install {{ item }}"
+      loop:
+        - screenfetch
+
