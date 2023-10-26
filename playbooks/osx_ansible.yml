@@ -36,16 +36,9 @@
     - name: Set bash as the default shell for executing user
       command: "chsh -s /bin/bash {{ executing_user.stdout }}"
 
-    - name: Check if Homebrew is installed
-      command: which brew
-      register: brew_check
-      failed_when: false
-      changed_when: false
-
+    # Install Homebrew tasks from another file
     - name: Install Homebrew
-      shell: curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | /bin/bash
-      when: brew_check.rc != 0
-      become: false
+      import_tasks: ../tasks/install_homebrew.yml
 
     - name: Ensure desired contents in ~/.bash_profile
       blockinfile:
