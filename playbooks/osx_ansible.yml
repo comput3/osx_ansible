@@ -1,1 +1,62 @@
+---
+- name: Configure macOS settings
+  hosts: localhost
+  tasks:
+    # Get the executing user's username
+    - name: Get executing user's username
+      command: whoami
+      register: executing_user
+      changed_when: false
 
+    # Ensure bash is listed in /etc/shells
+    - name: Ensure bash is in /etc/shells
+      lineinfile:
+        path: /etc/shells
+        line: '/bin/bash'
+        state: present
+      become: true
+
+    # Change default shell to bash for the executing user
+    - name: Set bash as the default shell for executing user
+      command: "chsh -s /bin/bash {{ executing_user.stdout }}"
+      become: true
+
+    # Ensure ~/.bash_profile exists, has the desired contents, and is sourced
+    - name: Ensure ~/.bash_profile exists
+      file:
+        path: "~/.bash_profile"
+        state: touch
+      become: false
+
+    - name: Ensure desired contents in ~/.bash_profile
+      lineinfile:
+        path: "~/.bash_profile"
+        line: "{{ item }}"
+      loop:
+        - "export CLICOLOR=1"
+        - "export LSCOLORS=ExGxBxDxCxEgEdxbxgxcxd"
+        - "export PATH=\"/usr/local/bin:$PATH\""
+        - "export BASH_SILENCE_DEPRECATION_WARNING=1"
+        - "alias ll='ls -ltr'"
+        - "eval \"$(/opt/homebrew/bin/brew shellenv)\""
+        - "export test='hi'"
+      become: false
+
+    - name: Source ~/.bash_profile
+      shell: source ~/.bash_profile
+      become: false
+
+    # Install Homebrew tasks from another file
+    - name: Install Homebrew
+      import_tasks: tasks/install_homebrew.yml
+
+    # Install Casks
+    - name: Install Casks
+      command:
+        cmd: "brew install --cask {{ item }}"
+      loop:
+        - google-chrome
+        - iterm2
+        - visual-studio-code
+        - dbeaver-community
+        - keepassxc
