@@ -21,6 +21,41 @@
       command: "chsh -s /bin/bash {{ executing_user.stdout }}"
       become: true
 
+    # Ensure ~/.bash_profile exists
+    - name: Ensure ~/.bash_profile exists
+      copy:
+        dest: "~/{{ executing_user.stdout }}/.bash_profile"
+        content: |
+          export CLICOLOR=1
+          export LSCOLORS=ExGxBxDxCxEgEdxbxgxcxd
+          export PATH="/usr/local/bin:$PATH"
+          export BASH_SILENCE_DEPRECATION_WARNING=1
+          alias ll='ls -ltr'
+          eval "$(/opt/homebrew/bin/brew shellenv)"
+          export test='hi'
+        force: no
+      become: false
+
+    # Ensure desired contents in ~/.bash_profile
+    - name: Ensure desired contents in ~/.bash_profile
+      lineinfile:
+        path: "~/{{ executing_user.stdout }}/.bash_profile"
+        line: "{{ item }}"
+      loop:
+        - "export CLICOLOR=1"
+        - "export LSCOLORS=ExGxBxDxCxEgEdxbxgxcxd"
+        - "export PATH=\"/usr/local/bin:$PATH\""
+        - "export BASH_SILENCE_DEPRECATION_WARNING=1"
+        - "alias ll='ls -ltr'"
+        - "eval \"$(/opt/homebrew/bin/brew shellenv)\""
+        - "export test='hi'"
+      become: false
+
+    # Source ~/.bash_profile
+    - name: Source ~/.bash_profile
+      shell: source ~/{{ executing_user.stdout }}/.bash_profile
+      become: false
+
     # Check if Homebrew is installed
     - name: Check if Homebrew is installed
       command: which brew
@@ -34,6 +69,7 @@
       when: brew_check.rc != 0
       become: false
 
+    # Install Casks
     - name: Install Casks
       command:
         cmd: "brew install --cask {{ item }}"
