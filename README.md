@@ -1,6 +1,6 @@
 # osx_ansible
 
-WebSphere Cgroups, is a CHEF/BASH implementation of Linux Cgroups that can be leveraged to control resources such as CPU, memory, and I/O bandwidth to groups of processes. Cgroups provide a way to control how much of the system's resources a process or a group of processes can use. Note some of this functionality can be implemented through JVM arguments for a given cluster process, but I found I was able to better control CPU via this methodology. 
+Automated configuration of OSX
 
 ## Installation
 
