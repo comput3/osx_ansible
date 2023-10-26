@@ -49,7 +49,7 @@
 
     - name: Ensure desired contents in ~/.bash_profile
       blockinfile:
-        path: "/Users/{{ executing_user.stdout }}/.bash_profile"
+        path: "~/.bash_profile"
         block: "{{ bash_profile_content }}"
         marker: "# {mark} ANSIBLE MANAGED BLOCK"
       become: false
