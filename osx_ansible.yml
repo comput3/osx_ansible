@@ -21,25 +21,16 @@
       command: "chsh -s /bin/bash {{ executing_user.stdout }}"
       become: true
 
-    # Ensure ~/.bash_profile exists
+    # Ensure ~/.bash_profile exists, has the desired contents, and is sourced
     - name: Ensure ~/.bash_profile exists
-      copy:
-        dest: "~/{{ executing_user.stdout }}/.bash_profile"
-        content: |
-          export CLICOLOR=1
-          export LSCOLORS=ExGxBxDxCxEgEdxbxgxcxd
-          export PATH="/usr/local/bin:$PATH"
-          export BASH_SILENCE_DEPRECATION_WARNING=1
-          alias ll='ls -ltr'
-          eval "$(/opt/homebrew/bin/brew shellenv)"
-          export test='hi'
-        force: no
+      file:
+        path: "~/.bash_profile"
+        state: touch
       become: false
 
-    # Ensure desired contents in ~/.bash_profile
     - name: Ensure desired contents in ~/.bash_profile
       lineinfile:
-        path: "~/{{ executing_user.stdout }}/.bash_profile"
+        path: "~/.bash_profile"
         line: "{{ item }}"
       loop:
         - "export CLICOLOR=1"
@@ -51,9 +42,8 @@
         - "export test='hi'"
       become: false
 
-    # Source ~/.bash_profile
     - name: Source ~/.bash_profile
-      shell: source ~/{{ executing_user.stdout }}/.bash_profile
+      shell: source ~/.bash_profile
       become: false
 
     # Check if Homebrew is installed
