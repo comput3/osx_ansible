@@ -39,7 +39,6 @@
         - "export BASH_SILENCE_DEPRECATION_WARNING=1"
         - "alias ll='ls -ltr'"
         - "eval \"$(/opt/homebrew/bin/brew shellenv)\""
-        - "export test='hi'"
       become: false
 
     - name: Source ~/.bash_profile
