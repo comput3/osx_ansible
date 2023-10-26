@@ -48,7 +48,7 @@
 
     # Install Homebrew tasks from another file
     - name: Install Homebrew
-      import_tasks: tasks/install_homebrew.yml
+      import_tasks: ../tasks/install_homebrew.yml
 
     # Install Casks
     - name: Install Casks
