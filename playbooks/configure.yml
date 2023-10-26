@@ -13,6 +13,8 @@
       - caffeine
     brew_packages:
       - screenfetch
+      - pyenv
+      - jupyter
     bash_profile_content: |
       export CLICOLOR=1
       export LSCOLORS=ExGxBxDxCxEgEdxbxgxcxd
