@@ -10,6 +10,7 @@
       - visual-studio-code
       - dbeaver-community
       - keepassxc
+      - caffeine
     brew_packages:
       - screenfetch
     bash_profile_content: |
