@@ -34,7 +34,7 @@ else
 fi
 
 # Install Ansible roles from requirements
-ansible-galaxy install -r requirements.yml
+#ansible-galaxy install -r requirements.yml
 
 # Execute Ansible playbook
 ansible-playbook -i "localhost," -c local playbooks/configure.yml --ask-become-pass
