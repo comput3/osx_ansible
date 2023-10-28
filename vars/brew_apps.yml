@@ -1,0 +1,13 @@
+---
+cask_apps:
+  - google-chrome
+  - iterm2
+  - visual-studio-code
+  - dbeaver-community
+  - keepassxc
+  - caffeine
+
+brew_packages:
+  - screenfetch
+  - pyenv
+  - jupyter
