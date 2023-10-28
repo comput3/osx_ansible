@@ -4,10 +4,10 @@ Automated personalized configuration of OSX.
 
 ## Installation
 
-Use the bootstrap.sh to deploy the ansible configurationa, and run the app
+Use the apply.sh to idempotently install xcode, rosetta, and the ansible configuration. The apply.sh will also localy execute the ansible playbook to configure the host system as defined.
 
 ```bash
-pip install foobar
+./apply.sh
 ```
 
 ## Usage
