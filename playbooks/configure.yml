@@ -4,8 +4,8 @@
   become: true
 
   vars_files:
-    - vars/brew_apps.yml
-    - vars/bash_content.yml
+    - ../vars/brew_apps.yml
+    - ../vars/bash_content.yml
 
   tasks:
     - name: Get executing user's username
