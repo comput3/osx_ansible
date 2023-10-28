@@ -3,25 +3,9 @@
   hosts: localhost
   become: true
 
-  vars:
-    cask_apps:
-      - google-chrome
-      - iterm2
-      - visual-studio-code
-      - dbeaver-community
-      - keepassxc
-      - caffeine
-    brew_packages:
-      - screenfetch
-      - pyenv
-      - jupyter
-    bash_profile_content: |
-      export CLICOLOR=1
-      export LSCOLORS=ExGxBxDxCxEgEdxbxgxcxd
-      export PATH="/usr/local/bin:$PATH"
-      export BASH_SILENCE_DEPRECATION_WARNING=1
-      alias ll='ls -ltr'
-      eval "$(/opt/homebrew/bin/brew shellenv)"
+  vars_files:
+    - vars/brew_apps.yml
+    - vars/bash_content.yml
 
   tasks:
     - name: Get executing user's username
