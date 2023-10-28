@@ -1,10 +1,10 @@
 # osx_ansible
 
-Automated configuration of OSX
+Automated personalized configuration of OSX. 
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+Use the bootstrap.sh to deploy the ansible configurationa, and run the app
 
 ```bash
 pip install foobar
