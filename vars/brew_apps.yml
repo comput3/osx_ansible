@@ -2,6 +2,7 @@
 cask_apps:
   - google-chrome
   - iterm2
+  - evernote
   - visual-studio-code
   - dbeaver-community
   - keepassxc
