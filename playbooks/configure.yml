@@ -6,6 +6,7 @@
   vars_files:
     - ../vars/brew_apps.yml
     - ../vars/bash_content.yml
+    - ../vars/ssh_config_content.yml
 
   tasks:
     - name: Get executing user's username
@@ -35,6 +36,15 @@
 
     - name: Source ~/.bash_profile
       shell: source ~/.bash_profile
+      become: false
+
+    - name: Ensure SSH config is in place with correct permissions
+      blockinfile:
+        path: "~/.ssh/config"
+        create: yes
+        block: "{{ ssh_config_content }}"
+        marker: "# {mark} ANSIBLE MANAGED BLOCK"
+        mode: '0600'
       become: false
 
     - name: Install Casks
