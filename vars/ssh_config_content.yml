@@ -1,0 +1,6 @@
+---
+ssh_config_content: |
+  Host *
+      ServerAliveInterval 120
+  HostkeyAlgorithms +ssh-rsa
+  PubkeyAcceptedAlgorithms +ssh-rsa
