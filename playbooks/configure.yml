@@ -7,6 +7,7 @@
     - ../vars/brew_apps.yml
     - ../vars/bash_content.yml
     - ../vars/ssh_config_content.yml
+    - ../vars/pip_packages.yml
 
   tasks:
     - name: Get executing user's username
@@ -26,6 +27,27 @@
     # Install Homebrew tasks from another file
     - name: Install Homebrew
       import_tasks: ../tasks/install_homebrew.yml
+
+    - name: Set Homebrew's Python path to PATH
+      lineinfile:
+        path: "~/.bash_profile"
+        line: 'export PATH="$PATH:$(brew --prefix python)/libexec/bin"'
+        state: present
+      become: false
+
+    - name: Upgrade Python setuptools
+      command: python3 -m pip install --upgrade setuptools
+
+    - name: Upgrade pip
+      command: python3 -m pip install --upgrade pip
+
+    # Install pip packages with Homebrew dependencies
+    - name: Install pip packages with Homebrew dependencies
+      shell:
+        cmd: |
+          CFLAGS="-I$(brew --prefix)/include" LDFLAGS="-L$(brew --prefix)/lib" pip install {{ item }}
+      loop: "{{ pip_packages }}"
+      become: false
 
     - name: Ensure desired contents in ~/.bash_profile
       blockinfile:
