@@ -8,6 +8,7 @@ cask_apps:
   - keepassxc
   - caffeine
   - drawio
+  - discord
 
 brew_packages:
   - screenfetch
