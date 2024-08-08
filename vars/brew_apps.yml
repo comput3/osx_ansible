@@ -13,3 +13,4 @@ brew_packages:
   - screenfetch
   - pyenv
   - jupyter
+  - go
